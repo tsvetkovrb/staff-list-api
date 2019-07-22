@@ -7,7 +7,7 @@ import { Staff } from '../models/staff';
 const staff = new Staff();
 
 export const getAllStaff = (req: Request, res: Response): void => {
-  const allStaff = staff.getStaff();
+  const allStaff: Array<Employee> = staff.getStaff();
   res.send(allStaff);
 };
 
@@ -15,9 +15,9 @@ export const getEmployeeById = (
   req: Request,
   res: Response,
 ): void | Response => {
-  const userID = parseInt(req.params.id, 10);
+  const userID: number = parseInt(req.params.id, 10);
 
-  const employee = staff.findEmployee(userID);
+  const employee: Employee | undefined = staff.findEmployee(userID);
 
   if (!employee) return res.sendStatus(404);
 
@@ -41,7 +41,7 @@ export const addComment = (req: IAddComment, res: Response): void => {
       comments: [...updatedComments],
     };
 
-    const user = staff.editEmployee(indexEmployee, updatedEmploee);
+    const user: Employee = staff.editEmployee(indexEmployee, updatedEmploee);
 
     res.send(user);
   } else {
